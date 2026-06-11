@@ -1,0 +1,83 @@
+# ========================================
+# MATLAB / Octave
+# ========================================
+# Autosave / backup files
+*.asv
+*.m~
+*.autosave
+*.slx.r*
+*.mdl.r*
+*.bak
+
+# Compiled MEX files
+*.mex*
+*.mexw64
+*.mexw32
+*.mexa64
+*.mexmaci64
+
+# Packaged / deployed files
+*.mlappinstall
+*.mltbx
+*.ctf
+*.p                  # Protected (p-code) files
+
+# Code generation and caches
+slprj/
+sccprj/
+codegen/
+*.slxc
+
+# Session / workspace files
+octave-workspace
+MATLAB.mat
+*.mat                # ← comment out if you want to track data files
+
+# Help / temporary folders
+helpsearch*/
+
+# Cloud / drive tags
+.MATLABDriveTag
+
+# ========================================
+# Dynare specific outputs
+# ========================================
+# Results files
+*_results.mat
+*_results.mat~ 
+
+# Preprocessor generated files (often in +foldername/)
++*/
+
+# Common Dynare output folders
+/graphs/
+/figures/
+/Output/
+*_static.m
+*_dynamic.m
+*_steadystate.m
+*_driver.m
+*.bin
+*.cod
+
+# Logs and temporary files
+*.log
+*.txt~               # sometimes Dynare creates these
+*.aux
+*.eps
+*.pdf                # ← comment out if you want to keep final plots
+*.fig
+
+# Estimation / identification outputs
+identification/
+mode_check/
+metropolis/
+*_mh_mode.mat
+*_mh*.mat
+*_mh.log
+
+# Other common junk
+*.zip
+*.tar.gz
+.DS_Store
+Thumbs.db
