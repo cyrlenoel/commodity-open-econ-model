@@ -1,17 +1,27 @@
-policies = {'DIT','CPI','PEG','TAYLOR'};
+% Set policy to TAYLOR
+txt = fileread('commodity2.mod');
+txt = regexprep(txt, ...
+    '@#define POLICY\s*=\s*".*?"', ...
+    '@#define POLICY = "TAYLOR"');
 
-for k = 1:numel(policies)
-    txt = fileread('commodity2.mod');
+fid = fopen('commodity2_tmp.mod', 'w');
+fwrite(fid, txt);
+fclose(fid);
+
+countries = {'AE','EM'};
+
+for k = 1:numel(countries)
+    txt = fileread('commodity2_tmp.mod');
     txt = regexprep(txt, ...
-        '@#define POLICY\s*=\s*".*?"', ...
-        ['@#define POLICY = "' policies{k} '"']);
+        '@#define COUNTRY\s*=\s*".*?"', ...
+        ['@#define COUNTRY = "' countries{k} '"']);
 
-    fid = fopen('commodity2_tmp.mod','w');
+    fid = fopen('commodity2_tmp2.mod','w');
     fwrite(fid, txt);
     fclose(fid);
 
-    dynare commodity2_tmp noclearall
-    RESULTS.(policies{k}) = oo_;
+    dynare commodity2_tmp2 noclearall
+    RESULTS.(countries{k}) = oo_;
 end
 
 vars = {'pi','pi_h','y_h','c','c_h_star','n','wr','i','e','s','p_tildec'};
@@ -42,17 +52,15 @@ for k = 1:length(vars)
     subplot(4,3,k);
     hold on;
 
-    plot(scale*RESULTS.DIT.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
-    plot(scale*RESULTS.CPI.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
-    plot(scale*RESULTS.PEG.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
-    plot(scale*RESULTS.TAYLOR.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
+    plot(scale*RESULTS.AE.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
+    plot(scale*RESULTS.EM.irfs.([vars{k} '_eps_ptcstar']),'LineWidth',1.5)
     
     ylabel('%')
     title(titles{k})
     grid on
 
     if k == 1
-        legend('DIT','CPI','PEG','TAYLOR')
+        legend('AE','EM')
     end
 
 end
